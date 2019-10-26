@@ -14,5 +14,7 @@ import com.sgic.ems.entity.Login;
  */
 @Repository
 public interface LoginRepository extends JpaRepository<Login, Integer>{
+	
+	Login findByUserName(String userName);
 
 }

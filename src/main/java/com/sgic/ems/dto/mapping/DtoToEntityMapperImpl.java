@@ -24,7 +24,7 @@ public class DtoToEntityMapperImpl implements DtoToEntityMapper {
 		user.setFullName(dto.getFullName());
 		user.setId(dto.getId());
 		user.setAddress(dto.getAddress());
-		user.setContactNumber(dto.getAddress());
+		user.setContactNumber(dto.getContactNumber());
 		user.setDob(dto.getDob());
 		user.setEmail(dto.getEmail());
 		user.setGender(dto.getGender());
@@ -67,7 +67,11 @@ public class DtoToEntityMapperImpl implements DtoToEntityMapper {
 		
 		experience.setId(dto.getId());
 		experience.setDesignation(dto.getDesignation());
-		
+		experience.setDuration(dto.getDuration());
+		experience.setEndDate(dto.getEndDate());
+		experience.setPlace(dto.getPlace());
+		experience.setStartDate(dto.getStartDate());
+		experience.setUser(mapToUser(dto.getUserDto()));
 		
 		return experience;
 	}
@@ -98,6 +102,7 @@ public class DtoToEntityMapperImpl implements DtoToEntityMapper {
 		professionalQualification.setYearFrom(dto.getYearFrom());
 		professionalQualification.setYearTo(dto.getYearTo());
 		professionalQualification.setUser(mapToUser(dto.getUserDto()));
+		professionalQualification.setType(dto.getType());
 		
 		return professionalQualification;
 		

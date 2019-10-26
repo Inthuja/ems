@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.sgic.ems.entity.ProfessionalQualification;
 import com.sgic.ems.entity.mapping.EntityToDtoMapper;
 import com.sgic.ems.service.ProfessionalQualificationService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class ProfessionalQualificationController {
 
@@ -44,13 +46,13 @@ public class ProfessionalQualificationController {
 	}
 
 	@PutMapping("/professionalQualification/{id}")
-	public ResponseEntity<String> updateProfessionalQualification(@PathVariable(name="id") Integer id,@RequestBody ProfessionalQualificationDto dto){
+	public HttpStatus updateProfessionalQualification(@PathVariable(name="id") Integer id,@RequestBody ProfessionalQualificationDto dto){
 		ProfessionalQualification professionalQualification=dtoToEntityMapper.mapToProfessionalQualification(dto);
 		if(professionalQualificationService.editProfessionalQualification(professionalQualification, id))
 		{
-			return new ResponseEntity<>("updated",HttpStatus.OK);
+			return HttpStatus.OK;
 		}
-		return new ResponseEntity<>("upadte failed", HttpStatus.BAD_REQUEST);
+		return  HttpStatus.BAD_REQUEST;
 	}
 
 	@GetMapping("/professionalQualification")
@@ -76,5 +78,10 @@ public class ProfessionalQualificationController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 		return status;
+	}
+	
+	@GetMapping("/professionalQualification/user/{id}")
+	public List<ProfessionalQualificationDto> getByUser(@PathVariable("id") Integer id) {
+		return entityToDtoMapper.mapToProfessionalQualificationDtoList(professionalQualificationService.getAllProfessionalQualificationByUser(id));
 	}
 }

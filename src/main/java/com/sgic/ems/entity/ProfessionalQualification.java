@@ -15,9 +15,7 @@ import javax.persistence.Table;
 @Table(name = "professional_qualification", schema = "employee")
 public class ProfessionalQualification implements Serializable{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -5898434042088616586L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +26,8 @@ public class ProfessionalQualification implements Serializable{
 	private String yearFrom;
 	@Column(name= "year_to")
 	private String yearTo;
+	@Column(name= "type")
+	private String type;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -62,6 +62,12 @@ public class ProfessionalQualification implements Serializable{
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	

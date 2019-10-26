@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sgic.ems.entity.AcadamicQualification;
+import com.sgic.ems.entity.User;
 import com.sgic.ems.repository.AcadamicQualificationRepository;
 import com.sgic.ems.service.AcadamicQualificationService;
 @Service
@@ -52,6 +53,13 @@ public class AcadamicQualificationServiceImpl implements AcadamicQualificationSe
 	@Override
 	public AcadamicQualification getById(Integer id) {
 		return acedemicQualificationRepository.getOne(id);
+	}
+
+	@Override
+	public List<AcadamicQualification> getAllAcedemicQualificationByUser(Integer id) {
+		User user = new User();
+		user.setId(id);
+		return acedemicQualificationRepository.getByUser(user);
 	}
 
 }

@@ -15,5 +15,7 @@ public interface ExperienceService {
 	   boolean deleteExperience(Integer id);
 	   
 	   Experience getById(Integer id);
+	   
+	   List<Experience> getAllExperienceByUser(Integer id);
 	
 }

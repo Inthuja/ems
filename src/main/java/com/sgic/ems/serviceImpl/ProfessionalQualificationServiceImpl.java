@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sgic.ems.entity.ProfessionalQualification;
+import com.sgic.ems.entity.User;
 import com.sgic.ems.repository.ProfessionalQualificationRepository;
 import com.sgic.ems.service.ProfessionalQualificationService;
 @Service
@@ -51,6 +52,14 @@ public class ProfessionalQualificationServiceImpl implements ProfessionalQualifi
 	@Override
 	public ProfessionalQualification getById(Integer id) {
 		return professionalQualificationRepository.getOne(id);
+	}
+
+	@Override
+	public List<ProfessionalQualification> getAllProfessionalQualificationByUser(Integer id) {
+
+		User user = new User();
+		user.setId(id);
+		return professionalQualificationRepository.getByUser(user);
 	}
 
 }

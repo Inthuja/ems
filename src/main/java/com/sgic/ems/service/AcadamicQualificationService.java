@@ -15,5 +15,7 @@ public interface AcadamicQualificationService {
 	boolean deleteAcedemicQualification(Integer id);
 
 	AcadamicQualification getById(Integer id);
+	
+	List<AcadamicQualification> getAllAcedemicQualificationByUser(Integer id);
 
 }

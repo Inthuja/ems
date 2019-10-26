@@ -10,8 +10,20 @@ public class ProfessionalQualificationDto {
 	
 	private String yearTo;
 	
+	private String type;
 	
 	private UserDto userDto;
+	
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
 
 
 	public Integer getId() {

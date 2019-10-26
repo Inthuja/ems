@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sgic.ems.entity.Experience;
+import com.sgic.ems.entity.User;
 import com.sgic.ems.repository.ExperienceRepository;
 import com.sgic.ems.service.ExperienceService;
 @Service
@@ -50,6 +51,13 @@ public class ExperienceServiceImpl implements ExperienceService {
 	@Override
 	public Experience getById(Integer id) {
 		return experienceRepository.getOne(id);
+	}
+
+	@Override
+	public List<Experience> getAllExperienceByUser(Integer id) {
+		User user = new User();
+		user.setId(id);
+		return experienceRepository.getByUser(user);
 	}
 
 }

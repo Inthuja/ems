@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sgic.ems.dto.AuthDto;
 import com.sgic.ems.entity.Login;
 import com.sgic.ems.repository.LoginRepository;
 import com.sgic.ems.service.LoginService;
@@ -50,6 +51,22 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public Login getById(Integer id) {
 		return loginRepository.getOne(id);
+	}
+
+	@Override
+	public AuthDto authenticate(String username, String password) {
+		Login login = loginRepository.findByUserName(username);			
+		if(login.getPassword().equals(password) ) {
+			AuthDto dto = new AuthDto();
+			
+			dto.setUsername(login.getUserName());
+			dto.setUserId(login.getUser().getId());
+			dto.setRole(login.getRole().getRoleName());
+			System.out.println(login.getPassword() + password);
+			return dto;
+		}
+		
+		return null;
 	}
 
 }

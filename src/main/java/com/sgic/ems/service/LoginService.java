@@ -2,6 +2,7 @@ package com.sgic.ems.service;
 
 import java.util.List;
 
+import com.sgic.ems.dto.AuthDto;
 import com.sgic.ems.entity.Login;
 
 public interface LoginService {
@@ -15,5 +16,7 @@ public interface LoginService {
 	   boolean deleteLogin(Integer id);
 	   
 	   Login getById(Integer id);
+	   
+	   AuthDto authenticate( String username, String password);
 
 }

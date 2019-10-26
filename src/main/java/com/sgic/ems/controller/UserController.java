@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgic.ems.dto.UserDto;
+import com.sgic.ems.dto.UserNameDto;
 import com.sgic.ems.dto.mapping.DtoToEntityMapper;
 import com.sgic.ems.entity.User;
 import com.sgic.ems.entity.mapping.EntityToDtoMapper;
 import com.sgic.ems.service.UserService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class UserController {
 
@@ -31,15 +34,12 @@ public class UserController {
 
 	
 	@PostMapping("/user")
-	public HttpStatus postRequestPromotion(@RequestBody UserDto dto) {
+	public UserDto postRequestPromotion(@RequestBody UserDto dto) {
 
-		boolean test = userService.addUser(
-				dtoToEntityMapper.mapToUser(dto));
+		return entityToDtoMapper.mapToUserDto(userService.addUser(
+				dtoToEntityMapper.mapToUser(dto)));
 				
-		if (test) {
-			return HttpStatus.CREATED;
-		}
-		return HttpStatus.BAD_REQUEST;
+		
 	}
 
 	@PutMapping("/user/{id}")
@@ -75,6 +75,11 @@ public class UserController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 		return status;
+	}
+	
+	@GetMapping("/user/allUsers")
+	public List<UserNameDto> getAllUserNames() {
+		return userService.getAllUserNames();
 	}
 	
 }

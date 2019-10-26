@@ -15,5 +15,7 @@ public interface ProfessionalQualificationService {
 	   boolean deleteProfessionalQualification(Integer id);
 	   
 	   ProfessionalQualification getById(Integer id);
+	   
+	   List<ProfessionalQualification> getAllProfessionalQualificationByUser(Integer id);
 	
 }

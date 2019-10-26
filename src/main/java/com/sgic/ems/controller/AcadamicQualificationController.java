@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.sgic.ems.entity.AcadamicQualification;
 import com.sgic.ems.entity.mapping.EntityToDtoMapper;
 import com.sgic.ems.service.AcadamicQualificationService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class AcadamicQualificationController {
 
@@ -43,13 +45,13 @@ public class AcadamicQualificationController {
 	}
 
 	@PutMapping("/acedemicQualification/{id}")
-	public ResponseEntity<String> updateAcedemicQualification(@PathVariable(name="id") Integer id,@RequestBody AcadamicQualificationDto dto){
+	public HttpStatus updateAcedemicQualification(@PathVariable(name="id") Integer id,@RequestBody AcadamicQualificationDto dto){
 		AcadamicQualification acedemicQualification=dtoToEntityMapper.mapToAccadamicQualification(dto);
 		if(acedemicQualificationService.editAcedemicQualification(acedemicQualification, id))
 		{
-			return new ResponseEntity<>("updated",HttpStatus.OK);
+			return HttpStatus.OK;
 		}
-		return new ResponseEntity<>("upadte failed", HttpStatus.BAD_REQUEST);
+		return HttpStatus.BAD_REQUEST;
 	}
 
 	@GetMapping("/acedemicQualification")
@@ -75,5 +77,10 @@ public class AcadamicQualificationController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 		return status;
+	}
+	
+	@GetMapping("/acedemicQualification/user/{id}")
+	public List<AcadamicQualificationDto> getByUser(@PathVariable("id") Integer id) {
+		return entityToDtoMapper.mapToAcadamicQualificationDtoList(acedemicQualificationService.getAllAcedemicQualificationByUser(id));
 	}
 }
